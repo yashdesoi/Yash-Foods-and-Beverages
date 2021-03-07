@@ -1,0 +1,42 @@
+[
+    {
+        "image url": "img/products/moong-dal.jpg",
+        "category": "Dal",
+        "name": "Moong Dal",
+        "net weight": "1 kg",
+        "MRP": 144,
+        "discounted price": 126
+    },
+    {
+        "image url": "img/products/urad-dal.jpg",
+        "category": "Dal",
+        "name": "Urad Dal",
+        "net weight": "1 kg",
+        "MRP": 150,
+        "discounted price": 135
+    },
+    {
+        "image url": "img/products/chana-dal.jpg",
+        "category": "Dal",
+        "name": "Chana Dal",
+        "net weight": "1 kg",
+        "MRP": 86,
+        "discounted price": 74
+    },
+    {
+        "image url": "img/products/sabudana.jpg",
+        "category": "Cereal",
+        "name": "Sabudana",
+        "net weight": "500 gm",
+        "MRP": 44,
+        "discounted price": 39
+    },
+    {
+        "image url": "img/products/shengdana.jpg",
+        "category": "Cereal",
+        "name": "Shengdana",
+        "net weight": "500 gm",
+        "MRP": 94,
+        "discounted price": 82
+    }
+]
