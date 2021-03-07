@@ -1,23 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YFB</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-</head>
+<%- include('partials/head.ejs') %> 
 <body>
     <!-- Header -->
-    <header>
-        <h1 class="title">Yash Foods & Beverages</h1>
-        <button class="cart-icon">
-            <div class="number-of-items-in-cart">0</div>
-        </button>
-    </header>
+    <%- include('partials/header.ejs') %> 
     <!-- Body -->
     <main>
         <form class="search-product" name="searchProduct" autocomplete="off">
