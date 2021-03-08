@@ -437,7 +437,6 @@ checkoutForm.addEventListener('submit', event => {
             details.items.push(itemDetails);
         });
 
-        console.log(details);
         createAndDownloadTextFile(details);
         alert('Thankyou! You will receive your order shortly :)');
         

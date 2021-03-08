@@ -45,6 +45,37 @@
         <button>Add</button>
     </form>
 
+    <div class="all-products">
+        <h2>All products</h2>
+        <% products.forEach(product => { %>
+            <div class="product" data-id="<%- product._id %> ">
+                <h3 class="name">
+                    <%- product.name %>
+                    <button class="delete">DELETE</button>
+                </h3>
+                <div class="category">
+                    Category: <%- product.category %> 
+                </div>
+                <div class="net-weight">
+                    Net weight: <%- product['net-weight'] %> 
+                </div>
+                <div class="mrp">
+                    MRP: &#8377;<%- product.mrp %> 
+                </div>
+                <div class="discounted-price">
+                    Discounted price: &#8377;<%- product['discounted-price'] %> 
+                </div>
+                <div class="image-url">
+                    <% if (product['image-url'].length > 0) { %>
+                        Image url: <a href="#"><%- product['image-url'] %></a>
+                    <% } else { %>
+                        Image url: --
+                    <% }  %> 
+                </div>
+            </div>
+        <% }); %>  
+    </div>
+
     <script>
         const form = document.querySelector('form');
 
@@ -59,7 +90,7 @@
             const discountedPrice = form.discountedPrice.value;
             const imageUrl = form.imageUrl.value;
             
-            fetch('/admin/add', {
+            fetch('/products/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -75,10 +106,31 @@
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    window.location.href = data.redirect;
                 })
                 .catch(err => console.log(err));
         });
+
+        const allProducts = document.querySelector('.all-products');
+
+        allProducts.addEventListener('click', event => {
+            event.stopPropagation();
+
+            if (event.target.classList.contains('delete')) {
+                const parent = event.target.parentElement.parentElement;
+                const id = parent.getAttribute('data-id');
+
+                fetch(`/products/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        window.location.href = data.redirect;
+                    })
+                    .catch(err => console.log(err));
+            }
+        });
+
     </script>
 </body>
 </html>

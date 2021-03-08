@@ -6,10 +6,7 @@
     font-family: 'Varela Round', sans-serif;
 }
 
-body {
-    margin: 0;
-}
-
+/* Form */
 form {
     display: flex;
     flex-direction: column;
@@ -19,6 +16,8 @@ form {
 form > h2 {
     margin: 0;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 form > label {
@@ -39,4 +38,38 @@ form select {
 form > button {
     align-self: center;
     font-family: inherit;
+}
+
+/* All products */
+.product {
+    margin: 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.product > .name {
+    margin: 3px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete {
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
+    background-color: transparent;
+    border: 2px solid red;
+    border-radius: 3px;
+    color: red;
+}
+
+.delete:active {
+    background-color: red;
+    color: white;
+}
+
+.delete:focus {
+    outline: none;
 }

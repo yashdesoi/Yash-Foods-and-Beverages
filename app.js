@@ -38,10 +38,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-    res.render('admin');
+    // res.locals.product =
+    
+    Product.find()
+        .sort({createdAt: -1})
+        .then(docs => {
+            res.locals.products = docs;
+            res.render('admin');
+        })
+        .catch(err => console.log(err));
 });
 
-app.post('/admin/add', (req, res) => {
+app.post('/products/add', (req, res) => {
     console.log(req.body);
 
     Product.create(req.body)
@@ -54,4 +62,15 @@ app.post('/admin/add', (req, res) => {
             res.status(400).json({redirect: '/admin'});
         });
 
+});
+
+app.delete('/products/:id', (req, res) => {
+    const id = req.params.id;
+
+    Product.findByIdAndDelete(id)
+        .then(() => res.json({redirect: '/admin'}))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json({redirect: '/admin'})
+        });
 });
