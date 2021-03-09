@@ -5,132 +5,86 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YFB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="/styles/admin.css">
 </head>
 <body>
-    <form id="add-new-product-form" autocomplete="off">
-        <h2>New product</h2>
-        <label for="product-category">
-            Category: <input type="text" id="product-category", name="productCategory" required>
-        </label>
-        <label for="product-name">
-            Name: <input type="text" id="product-name" name="productName" required>
-        </label>
-        <label for="product-weight">
-            Net Weight: <div>
+    <header>
+
+    </header>
+    <main>
+        <form autocomplete="off">
+            <h2>New product</h2>
+            <label for="product-category">
+                Category:
+                <input type="text" id="product-category" name="productCategory" required>
+            </label>
+            <label for="product-name">
+                Name:
+                <input type="text" id="product-name" name="productName" required>
+            </label>
+            <label for="product-weight" class="special">
+                Net Weight:
                 <input type="number" id="product-weight" name="productWeight" required>
                 <select name="unit" required>
-                    <option value="">Unit?</option>
+                    <option value="" selected disabled hidden>Unit?</option>
                     <option value="kg">kg</option>
                     <option value="gm">gm</option>
                     <option value="L">L</option>
                     <option value="mL">mL</option>
                 </select>
-            </div>
-        </label>
-        <label for="product-mrp">
-            MRP: <div>
-                &#8377;<input type="number" id="product-mrp" name="productMrp" required>
-            </div>
-        </label>
-        <label for="discounted-price">
-            Discounted Price: <div>
-                &#8377;<input type="number" id="discounted-price" name="discountedPrice" required>
-            </div>
-        </label>
-        <label for="image-url">
-            Image URL: <input type="text" id="image-url" name="imageUrl">
-        </label>
-        <button>Add</button>
-    </form>
-
-    <div class="all-products">
-        <h2>All products</h2>
-        <% products.forEach(product => { %>
-            <div class="product" data-id="<%- product._id %> ">
-                <h3 class="name">
-                    <%- product.name %>
-                    <button class="delete">DELETE</button>
-                </h3>
-                <div class="category">
-                    Category: <%- product.category %> 
+            </label>
+            <label for="product-mrp" class="special">
+                MRP:
+                <span class="currency-sign">&#8377;</span>
+                <input type="number" id="product-mrp" name="productMrp" required>
+            </label>
+            <label for="discounted-price" class="special">
+                Discounted Price:
+                <span class="currency-sign">&#8377;</span>
+                <input type="number" id="discounted-price" name="discountedPrice" required>
+            </label>
+            <label for="image-url">
+                Image URL:
+                <input type="text" id="image-url" name="imageUrl">
+            </label>
+            <button>Add</button>
+        </form>
+    
+        <div class="all-products">
+            <h2>All products</h2>
+            <% products.forEach(product => { %>
+                <div class="product" data-id="<%- product._id %> ">
+                    <h3 class="name">
+                        <%- product.name %>
+                        <button class="update">UPDATE</button>
+                        <button class="delete">DELETE</button>
+                    </h3>
+                    <div class="category">
+                        Category: <%- product.category %> 
+                    </div>
+                    <div class="net-weight">
+                        Net weight: <%- product['net-weight'] %> 
+                    </div>
+                    <div class="mrp">
+                        MRP: &#8377;<%- product.mrp %> 
+                    </div>
+                    <div class="discounted-price">
+                        Discounted price: &#8377;<%- product['discounted-price'] %> 
+                    </div>
+                    <div class="image-url">
+                        <% if (product['image-url'].length > 0) { %>
+                            Image url: <a href="#"><%- product['image-url'] %></a>
+                        <% } else { %>
+                            Image url: --
+                        <% }  %> 
+                    </div>
                 </div>
-                <div class="net-weight">
-                    Net weight: <%- product['net-weight'] %> 
-                </div>
-                <div class="mrp">
-                    MRP: &#8377;<%- product.mrp %> 
-                </div>
-                <div class="discounted-price">
-                    Discounted price: &#8377;<%- product['discounted-price'] %> 
-                </div>
-                <div class="image-url">
-                    <% if (product['image-url'].length > 0) { %>
-                        Image url: <a href="#"><%- product['image-url'] %></a>
-                    <% } else { %>
-                        Image url: --
-                    <% }  %> 
-                </div>
-            </div>
-        <% }); %>  
-    </div>
+            <% }); %>  
+        </div>
+    </main>
+    <footer>
 
-    <script>
-        const form = document.querySelector('form');
-
-        form.addEventListener('submit', event => {
-            event.preventDefault();
-            const category = form.productCategory.value;
-            const name = form.productName.value;
-            let netWeight = form.productWeight.value;
-            const unit = form.unit.value;
-            netWeight = netWeight + ' ' + unit;
-            const mrp = form.productMrp.value;
-            const discountedPrice = form.discountedPrice.value;
-            const imageUrl = form.imageUrl.value;
-            
-            fetch('/products/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    category,
-                    name,
-                    'net-weight': netWeight,
-                    mrp,
-                    'discounted-price': discountedPrice,
-                    'image-url': imageUrl
-                })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    window.location.href = data.redirect;
-                })
-                .catch(err => console.log(err));
-        });
-
-        const allProducts = document.querySelector('.all-products');
-
-        allProducts.addEventListener('click', event => {
-            event.stopPropagation();
-
-            if (event.target.classList.contains('delete')) {
-                const parent = event.target.parentElement.parentElement;
-                const id = parent.getAttribute('data-id');
-
-                fetch(`/products/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        window.location.href = data.redirect;
-                    })
-                    .catch(err => console.log(err));
-            }
-        });
-
-    </script>
+    </footer>
+    <script src="scripts/admin.js"></script>
 </body>
 </html>

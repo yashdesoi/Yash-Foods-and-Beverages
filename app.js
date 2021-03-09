@@ -13,17 +13,18 @@ app.set('view engine', 'ejs');
 const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
-    autoIndex: true, //this is the code I added that solved it all
+    autoIndex: true,
     keepAlive: true,
     poolSize: 10,
     bufferMaxEntries: 0,
     connectTimeoutMS: 10000,
     socketTimeoutMS: 45000,
-    family: 4, // Use IPv4, skip trying IPv6
+    family: 4,
     useFindAndModify: false,
     useUnifiedTopology: true
 }
 
+// Connecting to database
 mongoose.connect('mongodb+srv://yash:EUprz3uEhCZvyTSk@cluster0.xbsxy.mongodb.net/Yash-Foods-and-Beverages?retryWrites=true&w=majority', options)
     .then(() => app.listen(3000))
     .catch(err => console.log(err.message));
@@ -38,8 +39,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
-    // res.locals.product =
-    
+
     Product.find()
         .sort({createdAt: -1})
         .then(docs => {
@@ -72,5 +72,24 @@ app.delete('/products/:id', (req, res) => {
         .catch(err => {
             console.log(err);
             res.status(400).json({redirect: '/admin'})
+        });
+});
+
+app.put('/products/:id', (req, res) => {
+    const id = req.params.id;
+
+    Product.findByIdAndUpdate(id, req.body)
+        .then(() => res.json({redirect: '/admin'}))
+        .catch(err => console.log(err));
+});
+
+app.get('/products/:id/update', (req, res) => {
+    const id = req.params.id.trim();
+
+    Product.findById(id)
+        .then(doc => {
+            res.locals.product = doc;
+            console.log(doc);
+            res.render('update');
         });
 });

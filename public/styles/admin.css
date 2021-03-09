@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 * {
     box-sizing: border-box;
 }
@@ -27,12 +29,27 @@ form > label {
     margin: 10px 0;
 }
 
+label.special {
+    justify-content: flex-start;
+}
+
+label.special::after {
+    content: '';
+    flex-grow: 1;
+}
+
+.currency-sign {
+    order: 1;
+}
+
 form input {
     font-family: inherit;
+    order: 1;
 }
 
 form select {
     font-family: inherit;
+    order: 1;
 }
 
 form > button {
@@ -51,25 +68,44 @@ form > button {
 .product > .name {
     margin: 3px 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
-.delete {
+.product > .name::after {
+    content: '';
+    flex-grow: 1;
+}
+
+.delete,
+.update {
     cursor: pointer;
     font-family: monospace;
     font-weight: bold;
     background-color: transparent;
-    border: 2px solid red;
+    border-width: 2px;
+    border-style: solid;
     border-radius: 3px;
+    margin: 0 5px;
+    order: 1;
+}
+
+.delete {
     color: red;
+    border-color: red;
+    margin-right: 0;
+}
+
+.update {
+    color: blue;
+    border-color: blue;
+}
+
+.update:active {
+    background-color: blue;
+    color: white;
 }
 
 .delete:active {
     background-color: red;
     color: white;
-}
-
-.delete:focus {
-    outline: none;
 }

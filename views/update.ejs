@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YFB</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+        <form autocomplete="off" data-id="<%= product._id %>">
+            <h2>Update product</h2>
+            <label for="product-category">
+                Category:
+                <input type="text" id="product-category" name="productCategory" required value="<%= product.category %>">
+            </label>
+            <label for="product-name">
+                Name:
+                <input type="text" id="product-name" name="productName" required value="<%= product.name %>">
+            </label>
+            <label for="product-weight" class="special">
+                Net Weight:
+                <input type="number" id="product-weight" name="productWeight" required value="<%= product['net-weight'].split(' ')[0] %>">
+                <select name="unit" required>
+                    <% const units = ['kg', 'gm', 'L', 'mL']; %> 
+                    <% for (let unit of units) { %>
+                        <% if (product['net-weight'].split(' ')[1] === unit) { %>
+                            <option value="<%= unit %>" selected><%= unit %></option>
+                        <% } else { %>
+                            <option value="<%= unit %>"><%= unit %></option>
+                        <% } %> 
+                    <% } %>
+                </select>
+            </label>
+            <label for="product-mrp" class="special">
+                MRP:
+                <span class="currency-sign">&#8377;</span>
+                <input type="number" id="product-mrp" name="productMrp" required value="<%= product.mrp %>">
+            </label>
+            <label for="discounted-price" class="special">
+                Discounted Price:
+                <span class="currency-sign">&#8377;</span>
+                <input type="number" id="discounted-price" name="discountedPrice" required value="<%= product['discounted-price'] %>">
+            </label>
+            <label for="image-url">
+                Image URL:
+                <input type="text" id="image-url" name="imageUrl" value="<%= product['image-url'] %>">
+            </label>
+            <button>Update</button>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+    <script>
+        const form = document.querySelector('form');
+        const id = form.getAttribute('data-id');
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            const category = form.productCategory.value;
+            const name = form.productName.value;
+            let netWeight = form.productWeight.value;
+            const unit = form.unit.value;
+            netWeight = netWeight + ' ' + unit;
+            const mrp = form.productMrp.value;
+            const discountedPrice = form.discountedPrice.value;
+            const imageUrl = form.imageUrl.value;
+            
+            fetch(`/products/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    category,
+                    name,
+                    'net-weight': netWeight,
+                    mrp,
+                    'discounted-price': discountedPrice,
+                    'image-url': imageUrl
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    window.location.href = data.redirect;
+                })
+                .catch(err => console.log(err));
+        });
+    </script>
+</body>
+</html>
