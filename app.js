@@ -33,9 +33,18 @@ mongoose.connect('mongodb+srv://yash:EUprz3uEhCZvyTSk@cluster0.xbsxy.mongodb.net
 app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
-    res.render('index');
+    // res.render('index');
+
+    Product.find()
+        .sort({createdAt: -1})
+        .then(docs => {
+            res.locals.products = docs;
+            res.render('index');
+        })
+        .catch(err => console.log(err));
 });
 
 app.get('/admin', (req, res) => {
@@ -62,6 +71,14 @@ app.post('/products/add', (req, res) => {
             res.status(400).json({redirect: '/admin'});
         });
 
+});
+
+app.get('/products/:id', (req, res) => {
+    const id = req.params.id;
+
+    Product.findById(id)
+        .then(doc => res.json(doc))
+        .catch(err => console.log(err));
 });
 
 app.delete('/products/:id', (req, res) => {
@@ -92,4 +109,19 @@ app.get('/products/:id/update', (req, res) => {
             console.log(doc);
             res.render('update');
         });
+});
+
+
+app.get('/customers/:id', (req, res) => {
+
+    // We will get this data from database
+    res.locals.customer = {
+        'customer-id': req.params.id.trim(),
+        name: 'John Doe',
+        email: 'demo@demo.net',
+        'mobile-number': '1234567890',
+        'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece'
+    };
+    
+    res.render('customer');
 });

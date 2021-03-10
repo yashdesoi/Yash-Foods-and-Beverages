@@ -109,3 +109,8 @@ form > button {
     background-color: red;
     color: white;
 }
+
+.update:focus,
+.delete:focus {
+    outline: none;
+}

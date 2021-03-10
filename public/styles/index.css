@@ -8,5 +8,61 @@
     font-family: 'Varela Round', sans-serif;
 }
 
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* All products */
+.product {
+    margin: 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.product > .name {
+    margin: 3px 0;
+}
+
+.product > .add {
+    display: block;
+    margin: 3px auto;
+}
+
+/* Cart */
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.remove {
+    cursor: pointer;
+    font-family: monospace;
+    font-weight: bold;
+    background-color: transparent;
+    border: 2px solid red;
+    border-radius: 3px;
+    margin: 0 5px;
+    order: 1;
+    color: red;
+}
+
+.remove:active {
+    background-color: red;
+    color: white;
+}
+
+.remove:focus {
+    outline: none;
+}
+
+.checkout {
+    display: block;
+    margin: 5px auto;
+}
+
 
 

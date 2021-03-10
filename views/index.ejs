@@ -11,11 +11,50 @@
     <header>
         <h1>Yash Foods and Beverages</h1>
     </header>
+    <div class="cart-wrappet">
+        <h2>Cart</h2>
+        <div class="cart">
+            <!-- Items -->
+        </div>
+        <button class="checkout">Checkout</button>
+    </div>
     <main>
-
+        <div class="all-products">
+            <h2>All products</h2>
+            <% products.forEach(product => { %>
+                <div class="product" data-id="<%- product._id %> ">
+                    <h3 class="name">
+                        <%- product.name %>
+                    </h3>
+                    <div class="category">
+                        Category: <%- product.category %> 
+                    </div>
+                    <div class="net-weight">
+                        Net weight: <%- product['net-weight'] %> 
+                    </div>
+                    <div class="mrp">
+                        MRP: &#8377;<%- product.mrp %> 
+                    </div>
+                    <div class="discounted-price">
+                        Discounted price: &#8377;<%- product['discounted-price'] %> 
+                    </div>
+                    <div class="image-url">
+                        <% if (product['image-url'].length > 0) { %>
+                            Image url: <a target="_blank" href="<%- product['image-url'] %>"><%- product['image-url'] %></a>
+                        <% } else { %>
+                            Image url: --
+                        <% }  %> 
+                    </div>
+                    <button class="add">
+                        Add
+                    </button>
+                </div>
+            <% }); %>  
+        </div>
     </main>
     <footer>
 
     </footer>
+    <script src="/scripts/index.js"></script>
 </body>
 </html>

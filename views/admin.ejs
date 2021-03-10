@@ -73,7 +73,7 @@
                     </div>
                     <div class="image-url">
                         <% if (product['image-url'].length > 0) { %>
-                            Image url: <a href="#"><%- product['image-url'] %></a>
+                            Image url: <a target="_blank" href="<%- product['image-url'] %>"><%- product['image-url'] %></a>
                         <% } else { %>
                             Image url: --
                         <% }  %> 
@@ -85,6 +85,6 @@
     <footer>
 
     </footer>
-    <script src="scripts/admin.js"></script>
+    <script src="/scripts/admin.js"></script>
 </body>
 </html>

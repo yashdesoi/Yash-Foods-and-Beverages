@@ -15,13 +15,13 @@ const orderSchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        required: ture
+        required: true
     },
     'product-list': {
         type: Object,
         required: true
     },
-    'total': {
+    total: {
         type: Number,
         required: true
     }
