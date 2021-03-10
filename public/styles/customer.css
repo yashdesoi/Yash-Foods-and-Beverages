@@ -17,3 +17,33 @@ button {
 button {
     cursor: pointer;
 }
+
+/* Form */
+form {
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+form > * {
+    margin: 5px 0;
+}
+
+form > label {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+}
+
+form > button {
+    align-self: center;
+}
+
+/* Cart */
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}

@@ -12,14 +12,17 @@
         <h1>Yash Foods and Beverages</h1>
     </header>
     <main>
-        <div class="current-order">
+        <div class="cart-wrapper">
             <h2>Current order</h2>
+            <div class="cart">
+                <!-- Item -->
+            </div>
         </div>
-        <form autocomplete="off">
+        <form autocomplete="off" data-customer-id="<%= customer['customer-id'] %>">
             <h2>Your details</h2>
-            <div>Name: <%= customer.name %></div>
+            <div id="customer-name" data-customer-name="<%= customer.name %>">Name: <%= customer.name %></div>
             <label for="phone-number">
-                Phone number: <input type="number" name="phone-number" id="phone-number" value="<%= customer['mobile-number'] %>">
+                Mobile number: <input type="number" name="mobileNumber" id="mobile-number" value="<%= customer['mobile-number'] %>">
             </label>
             <label for="address">
                 Address: <textarea name="address" id="address" cols="30" rows="10"><%= customer.address %></textarea>

@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 const Product = require('./models/Product');
+const Order = require('./models/Order');
 
 // Creating express app
 const app = express();
@@ -54,6 +55,16 @@ app.get('/admin', (req, res) => {
         .then(docs => {
             res.locals.products = docs;
             res.render('admin');
+        })
+        .catch(err => console.log(err));
+});
+
+app.post('/admin/orders', (req, res) => {
+    const customerId = req.body['customer-id'];
+    Order.create(req.body)
+        .then(doc => {
+            console.log(doc);
+            res.json({redirect: `/customers/${customerId}`});
         })
         .catch(err => console.log(err));
 });
@@ -114,14 +125,22 @@ app.get('/products/:id/update', (req, res) => {
 
 app.get('/customers/:id', (req, res) => {
 
+    const customerId = req.params.id.trim();
+
     // We will get this data from database
     res.locals.customer = {
-        'customer-id': req.params.id.trim(),
+        'customer-id': customerId,
         name: 'John Doe',
         email: 'demo@demo.net',
         'mobile-number': '1234567890',
-        'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece'
+        'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece.'
     };
-    
-    res.render('customer');
+
+    Order.find({'customer-id': customerId})
+        .then(docs => {
+            console.log(docs);
+            res.locals.products = docs;
+            res.render('customer');
+        })
+        .catch(err => console.log(err))
 });
