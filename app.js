@@ -136,7 +136,10 @@ app.get('/customers/:id', (req, res) => {
         'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece.'
     };
 
-    console.log(req.body);
+    const buff = new Buffer(req.query.cart, 'base64');
+    const jsonString = buff.toString('ascii');
+
+    console.log(JSON.parse(jsonString));
 
     Order.find({'customer-id': customerId})
         .then(docs => {
