@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const Product = require('./models/Product');
 const Order = require('./models/Order');
@@ -26,7 +27,7 @@ const options = {
 }
 
 // Connecting to database
-mongoose.connect('mongodb+srv://yash:EUprz3uEhCZvyTSk@cluster0.xbsxy.mongodb.net/Yash-Foods-and-Beverages?retryWrites=true&w=majority', options)
+mongoose.connect(process.env.DATABASE_URI, options)
     .then(() => app.listen(3000))
     .catch(err => console.log(err.message));
 
