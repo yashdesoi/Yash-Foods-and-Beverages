@@ -37,7 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
-    // res.render('index');
 
     Product.find()
         .sort({createdAt: -1})
@@ -127,7 +126,7 @@ app.get('/customers/:id', (req, res) => {
 
     const customerId = req.params.id.trim();
 
-    // We will get this data from database
+    // We will get this data from database later when we implement it
     res.locals.customer = {
         'customer-id': customerId,
         name: 'John Doe',
@@ -136,11 +135,12 @@ app.get('/customers/:id', (req, res) => {
         'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece.'
     };
 
+    console.log(req.body);
+
     Order.find({'customer-id': customerId})
         .then(docs => {
-            console.log(docs);
             res.locals.products = docs;
             res.render('customer');
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 });

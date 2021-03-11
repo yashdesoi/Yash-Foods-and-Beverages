@@ -70,10 +70,14 @@ checkout.addEventListener('click', event => {
     
     if (numberOfItemsInCart > 0) {
         const data = JSON.stringify(productList);
+        console.log(productList);
         localStorage.setItem('cart', data);
-        window.location.href = `/customers/13b2v`;
-        //                                   ^
-        //                  dummy route with fake customer id
+        // window.location.href = '/customers/13b2v';
+        // //                                   ^
+        // //                  dummy route with fake customer id
+
+        // Making a GET request like this
+        window.location.href = `/customers/13b2v?cart=${data}`;
     } else {
         alert('Your cart is empty');
     }
