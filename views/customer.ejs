@@ -22,10 +22,10 @@
             <h2>Your details</h2>
             <div id="customer-name" data-customer-name="<%= customer.name %>">Name: <%= customer.name %></div>
             <label for="phone-number">
-                Mobile number: <input type="number" name="mobileNumber" id="mobile-number" value="<%= customer['mobile-number'] %>">
+                Mobile number: <input type="number" name="mobileNumber" id="mobile-number" value="<%= customer['mobile-number'] %>" required>
             </label>
             <label for="address">
-                Address: <textarea name="address" id="address" cols="30" rows="10"><%= customer.address %></textarea>
+                Address: <textarea name="address" id="address" cols="30" rows="10" required><%= customer.address %></textarea>
             </label>
             <button>Place order</button>
         </form>

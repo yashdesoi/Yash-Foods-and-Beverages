@@ -59,6 +59,16 @@ app.get('/admin', (req, res) => {
         .catch(err => console.log(err));
 });
 
+app.get('/admin/orders', (req, res) => {
+    Order.find()
+        .sort({createdAt: -1})
+        .then(docs => {
+            res.locals.orders = docs;
+            res.render('orders');
+        })
+        .catch(err => console.log(err));
+});
+
 app.post('/admin/orders', (req, res) => {
     const customerId = req.body['customer-id'];
     Order.create(req.body)
@@ -66,6 +76,14 @@ app.post('/admin/orders', (req, res) => {
             console.log(doc);
             res.json({redirect: `/customers/${customerId}`});
         })
+        .catch(err => console.log(err));
+});
+
+app.delete('/admin/orders/:id', (req, res) => {
+    const id = req.params.id.trim();
+
+    Order.findByIdAndDelete(id)
+        .then(() => res.json({redirect: '/admin/orders'}))
         .catch(err => console.log(err));
 });
 

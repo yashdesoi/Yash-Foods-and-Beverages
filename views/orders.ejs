@@ -5,16 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YFB</title>
+    <link rel="stylesheet" href="/styles/orders.css">
 </head>
 <body>
     <header>
         <h1>Yash Foods and Beverages</h1>
     </header>
     <main>
-
+        <h2>Pending orders</h2>
+        <div class="orders">
+            <% if (orders.length) { %>
+                <% orders.forEach(order => { %>
+                    <div class="order" data-id="<%= order._id %>">
+                        <button class="complete">COMPLETE</button>
+                        <strong>Name:</strong> <%= order.name %><br>
+                        <strong>Mobile number:</strong> <%= order['mobile-number'] %><br>
+                        <strong>Address:</strong> <%= order.address %><br>
+                        <% for (let key in order['product-list']) { %>
+                            <% const item = order['product-list'][key] %>
+                            <div class="item">
+                                <span class="name"><%= item.name %></span>/
+                                <span class="net-weight"><%= item['net-weight'] %></span>/
+                                <span class="price">&#8377;<%= item.price %></span>/
+                                <span class="quantity">Qty. <%= item.quantity %></span>
+                            </div>
+                        <% } %>  
+                    </div>
+                <% }); %>  
+            <% } else { %>
+                --No pending orders--
+            <% } %>
+        </div>
     </main>
     <footer>
 
     </footer>
+    <script>
+        const orders = document.querySelector('.orders');
+
+        orders.addEventListener('click', event => {
+            event.stopPropagation();
+
+            if (event.target.classList.contains('complete')) {
+                const orderId = event.target.parentElement.getAttribute('data-id').trim();
+                
+                fetch(`/admin/orders/${orderId}`, {method: 'DELETE'})
+                    .then(res => res.json())
+                    .then(data => {
+                        window.location.href = data.redirect;
+                    })
+                    .catch(err => console.log(err));
+            }
+        });
+    </script>
 </body>
 </html>
