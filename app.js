@@ -3,6 +3,10 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const adminRouter = require('./routes/adminRoutes');
+const productRouter = require('./routes/productRoutes');
+const customerRouter = require('./routes/customerRoutes');
+
 const Product = require('./models/Product');
 const Order = require('./models/Order');
 
@@ -48,118 +52,11 @@ app.get('/', (req, res) => {
         .catch(err => console.log(err));
 });
 
-app.get('/admin', (req, res) => {
+// Admin
+app.use('/admin', adminRouter)
 
-    Product.find()
-        .sort({createdAt: -1})
-        .then(docs => {
-            res.locals.products = docs;
-            res.render('admin');
-        })
-        .catch(err => console.log(err));
-});
+// Products
+app.use('/products', productRouter);
 
-app.get('/admin/orders', (req, res) => {
-    Order.find()
-        .sort({createdAt: -1})
-        .then(docs => {
-            res.locals.orders = docs;
-            res.render('orders');
-        })
-        .catch(err => console.log(err));
-});
-
-app.post('/admin/orders', (req, res) => {
-    const customerId = req.body['customer-id'];
-    Order.create(req.body)
-        .then(doc => {
-            console.log(doc);
-            res.json({redirect: `/customers/${customerId}`});
-        })
-        .catch(err => console.log(err));
-});
-
-app.delete('/admin/orders/:id', (req, res) => {
-    const id = req.params.id.trim();
-
-    Order.findByIdAndDelete(id)
-        .then(() => res.json({redirect: '/admin/orders'}))
-        .catch(err => console.log(err));
-});
-
-app.post('/products/add', (req, res) => {
-    console.log(req.body);
-
-    Product.create(req.body)
-        .then(doc => {
-            console.log(doc);
-            res.json({redirect: '/admin'});
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(400).json({redirect: '/admin'});
-        });
-
-});
-
-app.get('/products/:id', (req, res) => {
-    const id = req.params.id;
-
-    Product.findById(id)
-        .then(doc => res.json(doc))
-        .catch(err => console.log(err));
-});
-
-app.delete('/products/:id', (req, res) => {
-    const id = req.params.id;
-
-    Product.findByIdAndDelete(id)
-        .then(() => res.json({redirect: '/admin'}))
-        .catch(err => {
-            console.log(err);
-            res.status(400).json({redirect: '/admin'})
-        });
-});
-
-app.put('/products/:id', (req, res) => {
-    const id = req.params.id;
-
-    Product.findByIdAndUpdate(id, req.body)
-        .then(() => res.json({redirect: '/admin'}))
-        .catch(err => console.log(err));
-});
-
-app.get('/products/:id/update', (req, res) => {
-    const id = req.params.id.trim();
-
-    Product.findById(id)
-        .then(doc => {
-            res.locals.product = doc;
-            console.log(doc);
-            res.render('update');
-        });
-});
-
-
-app.get('/customers/:id', (req, res) => {
-
-    const customerId = req.params.id.trim();
-
-    // We will get this data from database later when we implement it
-    res.locals.customer = {
-        'customer-id': customerId,
-        name: 'John Doe',
-        email: 'demo@demo.net',
-        'mobile-number': '1234567890',
-        'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece.'
-    };
-
-    Order.find({'customer-id': customerId})
-        .sort({createdAt: -1})
-        .then(docs => {
-            res.locals.orders = docs;
-            console.log(docs)
-            res.render('customer');
-        })
-        .catch(err => console.log(err));
-});
+// Customers
+app.use('/customers', customerRouter);
