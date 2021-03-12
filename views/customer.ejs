@@ -29,6 +29,28 @@
             </label>
             <button>Place order</button>
         </form>
+        <div class="pending-orders">
+            <h2>Pending orders</h2>
+            <% if (orders.length) { %>
+                <% orders.forEach(order => { %>
+                    <div class="order">
+                        Mobile number: <%= order['mobile-number'] %><br>
+                        Address: <%= order.address %><br>
+                        <% for (let key in order['product-list']) { %>
+                            <% const item = order['product-list'][key] %>
+                            <div class="item">
+                                <span class="name"><%= item.name %></span>/
+                                <span class="net-weight"><%= item['net-weight'] %></span>/
+                                <span class="price">&#8377;<%= item.price %></span>/
+                                <span class="quantity">Qty. <%= item.quantity %></span>
+                            </div> 
+                        <% } %>  
+                    </div>
+                <% }); %>  
+            <% } else { %>
+                --No pending orders--
+            <% } %>   
+        </div>
     </main>
     <footer>
 

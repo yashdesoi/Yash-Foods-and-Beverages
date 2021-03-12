@@ -1,8 +1,32 @@
-let productList = {};
+let productList;
 
 const products = document.querySelector('.all-products')
 const cart = document.querySelector('.cart');
 const checkout = document.querySelector('.checkout');
+
+// Inject the data present in local storage
+const data = localStorage.getItem('productList');
+
+if (data) {
+    productList = JSON.parse(data);
+    for(let key in productList) {
+        const item = productList[key];
+        const html = `
+        <div class="item" data-id="${key}">
+            <span class="name">${item.name}</span>/
+            <span class="net-weight">${item['net-weight']}</span>/
+            <span class="price">&#8377;${item.price}</span>/
+            <button class="remove">REMOVE</button>
+        </div>
+        `;
+
+        // Adding items to cart
+        cart.innerHTML += html;
+    }
+    
+} else {
+    productList = {};
+}
 
 
 // Add to cart
@@ -46,6 +70,8 @@ products.addEventListener('click', event => {
     }
 });
 
+
+// Remove from cart
 const removeFromCart = function(element) {
     const productId = element.getAttribute('data-id').trim();
     // Updating product list
@@ -63,6 +89,8 @@ cart.addEventListener('click', event => {
     }
 });
 
+
+// Checkout
 checkout.addEventListener('click', event => {
     event.stopPropagation();
 
@@ -70,14 +98,11 @@ checkout.addEventListener('click', event => {
     
     if (numberOfItemsInCart > 0) {
         const data = JSON.stringify(productList);
-        console.log(btoa(data));
-        localStorage.setItem('cart', data);
-        // window.location.href = '/customers/13b2v';
-        // //                                   ^
-        // //                  dummy route with fake customer id
 
-        // Making a GET request like this
-        window.location.href = `/customers/13b2v?cart=${btoa(data)}`;
+        localStorage.setItem('productList', data);
+        window.location.href = '/customers/13b2v';
+        //                                   ^
+        //                  dummy route with fake customer id
     } else {
         alert('Your cart is empty');
     }

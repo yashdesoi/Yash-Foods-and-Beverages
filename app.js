@@ -136,14 +136,11 @@ app.get('/customers/:id', (req, res) => {
         'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece.'
     };
 
-    const buff = new Buffer(req.query.cart, 'base64');
-    const jsonString = buff.toString('ascii');
-
-    console.log(JSON.parse(jsonString));
-
     Order.find({'customer-id': customerId})
+        .sort({createdAt: -1})
         .then(docs => {
-            res.locals.products = docs;
+            res.locals.orders = docs;
+            console.log(docs)
             res.render('customer');
         })
         .catch(err => console.log(err));

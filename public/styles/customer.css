@@ -47,3 +47,8 @@ form > button {
     align-items: center;
     margin: 5px 0;
 }
+
+/* Pending order */
+.order {
+    margin: 15px 0;
+}

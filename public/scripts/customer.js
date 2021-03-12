@@ -1,8 +1,8 @@
 const cart = document.querySelector('.cart');
 const form = document.querySelector('form');
-const productList = JSON.parse(localStorage.getItem('cart'));
+const productList = JSON.parse(localStorage.getItem('productList'));
 let total = 0;
-
+console.log(productList);
 if (productList) {
     for(let key in productList) {
         const item = productList[key];
@@ -25,6 +25,7 @@ if (productList) {
     cart.textContent = '--Cart is empty--';
 }
 
+// Placing order
 form.addEventListener('submit', event => {
     event.preventDefault();
 
@@ -47,8 +48,8 @@ form.addEventListener('submit', event => {
         })
             .then(res => res.json())
             .then(data => {
+                localStorage.removeItem('productList');
                 window.location.href = data.redirect;
-                localStorage.removeItem('cart');
             })
             .catch(err => console.log(err));
     } else {
