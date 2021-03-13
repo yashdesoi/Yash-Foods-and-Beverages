@@ -1,60 +1,17 @@
 const express = require('express');
 
-const Product = require('../models/Product');
+const productController = require('../controllers/productControllers');
 
 const router = express.Router();
 
-router.post('/add', (req, res) => {
-    console.log(req.body);
+router.post('/', productController.products_post);
 
-    Product.create(req.body)
-        .then(doc => {
-            console.log(doc);
-            res.json({redirect: '/admin'});
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(400).json({redirect: '/admin'});
-        });
+router.get('/:id', productController.products_product_get);
 
-});
+router.delete('/:id', productController.products_product_delete);
 
-router.get('/:id', (req, res) => {
-    const id = req.params.id;
+router.put('/:id', productController.products_product_put);
 
-    Product.findById(id)
-        .then(doc => res.json(doc))
-        .catch(err => console.log(err));
-});
-
-router.delete('/:id', (req, res) => {
-    const id = req.params.id;
-
-    Product.findByIdAndDelete(id)
-        .then(() => res.json({redirect: '/admin'}))
-        .catch(err => {
-            console.log(err);
-            res.status(400).json({redirect: '/admin'})
-        });
-});
-
-router.put('/:id', (req, res) => {
-    const id = req.params.id;
-
-    Product.findByIdAndUpdate(id, req.body)
-        .then(() => res.json({redirect: '/admin'}))
-        .catch(err => console.log(err));
-});
-
-router.get('/:id/update', (req, res) => {
-    const id = req.params.id.trim();
-
-    Product.findById(id)
-        .then(doc => {
-            res.locals.product = doc;
-            console.log(doc);
-            res.render('update');
-        });
-});
+router.get('/:id/update', productController.product_update_get);
 
 module.exports = router;

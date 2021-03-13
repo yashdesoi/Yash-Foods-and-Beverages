@@ -11,7 +11,7 @@ form.addEventListener('submit', event => {
     const discountedPrice = form.discountedPrice.value;
     const imageUrl = form.imageUrl.value;
     
-    fetch('/products/add', {
+    fetch('/products', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
