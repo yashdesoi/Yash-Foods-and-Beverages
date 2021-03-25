@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YFB</title>
+    <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+    <header>
+        <h1>Yash Foods and Beverages</h1>
+    </header>
+    <main>
+        <h2>Login</h2>
+        <form autocomplete="off">
+            <label for="email">
+                Email: <input type="text" name="email" id="email">
+            </label>
+            <div class="email-error error">
+
+            </div>
+            <label for="password">
+                Password: <input type="password" name="password" id="password">
+            </label>
+            <div class="password-error error">
+                
+            </div>
+            <button>Login</button>
+            <a href="/signup">
+                Don't have an account yet?
+            </a>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+    <script>
+        // const form = document.forms.signupForm;
+
+        // const emailError = document.querySelector('.email-error');
+        // const passwordError = document.querySelector('.password-error');
+      
+        // form.addEventListener('submit', event => {
+        //     event.preventDefault();
+
+        //     emailError.textContent = '';
+        //     passwordError.textContent = '';
+
+        //     const email = form.email.value;
+        //     const password = form.password.value;
+            
+        //     fetch('/signup', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({email, password})
+        //     })
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             if (data.error) {
+        //                 emailError.textContent = data.email;
+        //                 passwordError.textContent = data.password;
+        //             } else {
+        //                 window.location.href = data.redirect;
+        //             }
+        //         })
+        //         .catch(err => {
+        //             console.log(err);
+        //         })
+        // });
+    </script>
+</body>
+</html>

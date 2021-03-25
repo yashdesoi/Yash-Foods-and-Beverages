@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YFB</title>
+    <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+    <header>
+        <h1>Yash Foods and Beverages</h1>
+    </header>
+    <main>
+        <h2>Signup</h2>
+        <form autocomplete="off">
+            <label for="name">
+                Full name: <input type="text" name="name" id="name">
+            </label>
+            <div class="error">
+
+            </div>
+            <label for="email">
+                Email: <input type="text" name="email" id="email">
+            </label>
+            <div class="email-error error">
+
+            </div>
+            <label for="mobile-number">
+                Mobile number: <input type="text" name="mobileNumber" id="mobile-number">
+            </label>
+            <div class="error">
+
+            </div>
+            <label for="address">
+                Address: <textarea name="address" id="address" cols="30" rows="10"></textarea>
+            </label>
+            <div class="error">
+                
+            </div>
+            <label for="password">
+                Password: <input type="password" name="password" id="password">
+            </label>
+            <div class="password-error error">
+                
+            </div>
+            <button>Signup</button>
+            <a href="/login">
+                Already have an account?
+            </a>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+    <script>
+        const form = document.querySelector('form');
+
+        // const emailError = document.querySelector('.email-error');
+        // const passwordError = document.querySelector('.password-error');
+      
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            // emailError.textContent = '';
+            // passwordError.textContent = '';
+
+            const userDetails = {
+                name: form.name.value,
+                email: form.email.value,
+                'mobile-number': form.mobileNumber.value,
+                address: form.address.value,
+                password: form.password.value
+            };
+            
+            fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userDetails)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    // if (data.error) {
+                    //     emailError.textContent = data.email;
+                    //     passwordError.textContent = data.password;
+                    // } else {
+                    //     window.location.href = data.redirect;
+                    // }
+                    console.log(data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        });
+    </script>
+</body>
+</html>

@@ -8,7 +8,7 @@ const productRouter = require('./routes/productRoutes');
 const customerRouter = require('./routes/customerRoutes');
 
 const Product = require('./models/Product');
-const Order = require('./models/Order');
+const Customer = require('./models/Customer');
 
 // Creating express app
 const app = express();
@@ -41,6 +41,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// Homepage
 app.get('/', (req, res) => {
 
     Product.find()
@@ -60,3 +61,23 @@ app.use('/products', productRouter);
 
 // Customers
 app.use('/customers', customerRouter);
+
+// Auth
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+app.post('/signup', (req, res) => {
+    Customer.create(req.body)
+        .then(doc => {
+            res.json(doc);
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false});
+        });
+});
+
+app.get('/login', (req, res) => {
+    res.render('login');
+})

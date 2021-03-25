@@ -10,7 +10,8 @@ const customers_customer_get = (req, res) => {
         name: 'John Doe',
         email: 'demo@demo.net',
         'mobile-number': '1234567890',
-        'address': 'Keas 69 Str. 15234, Chalandri Athens, Greece.'
+        address: 'Keas 69 Str. 15234, Chalandri Athens, Greece.',
+        password: 'Test123'
     };
 
     Order.find({'customer-id': customerId})
