@@ -1,13 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
-* {
-    box-sizing: border-box;
-}
-
-:root {
-    font-family: 'Varela Round', sans-serif;
-}
-
 /* Form */
 form {
     display: flex;
@@ -78,7 +68,6 @@ form > button {
 
 .delete,
 .update {
-    cursor: pointer;
     font-family: monospace;
     font-weight: bold;
     background-color: transparent;

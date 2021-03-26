@@ -1,18 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
-* {
-    box-sizing: border-box;
-}
-
-:root {
-    font-family: 'Varela Round', sans-serif;
-}
-
-button {
-    cursor: pointer;
-    font-family: inherit;
-}
-
 /* All products */
 .product {
     margin: 10px 0;
@@ -39,7 +24,6 @@ button {
 }
 
 .remove {
-    cursor: pointer;
     font-family: monospace;
     font-weight: bold;
     background-color: transparent;

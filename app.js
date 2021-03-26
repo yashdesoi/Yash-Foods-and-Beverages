@@ -6,9 +6,9 @@ require('dotenv').config();
 const adminRouter = require('./routes/adminRoutes');
 const productRouter = require('./routes/productRoutes');
 const customerRouter = require('./routes/customerRoutes');
+const authRouter = require('./routes/authRoutes');
 
 const Product = require('./models/Product');
-const Customer = require('./models/Customer');
 
 // Creating express app
 const app = express();
@@ -63,21 +63,4 @@ app.use('/products', productRouter);
 app.use('/customers', customerRouter);
 
 // Auth
-app.get('/signup', (req, res) => {
-    res.render('signup');
-});
-
-app.post('/signup', (req, res) => {
-    Customer.create(req.body)
-        .then(doc => {
-            res.json(doc);
-        })
-        .catch(err => {
-            console.log(err);
-            res.json({success: false});
-        });
-});
-
-app.get('/login', (req, res) => {
-    res.render('login');
-})
+app.use(authRouter);
