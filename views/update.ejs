@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="/styles/admin.css">
 </head>
 <body>
-    <header>
-
-    </header>
+    <%- include('./partials/header.ejs') %>
     <main>
         <form autocomplete="off" data-id="<%= product._id %>">
             <h2>Update product</h2>
@@ -53,9 +51,7 @@
             <button>Update</button>
         </form>
     </main>
-    <footer>
-
-    </footer>
+    <%- include('./partials/footer.ejs') %>
     <script src="/scripts/update.js"></script>
 </body>
 </html>

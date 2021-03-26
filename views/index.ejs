@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="/styles/index.css">
 </head>
 <body>
-    <header>
-        <h1>Yash Foods and Beverages</h1>
-    </header>
+    <%- include('./partials/header.ejs') %>
     <div class="cart-wrapper">
         <h2>Cart</h2>
         <div class="cart">
@@ -52,9 +50,7 @@
             <% }); %>  
         </div>
     </main>
-    <footer>
-
-    </footer>
+    <%- include('./partials/footer.ejs') %>
     <script src="/scripts/index.js"></script>
 </body>
 </html>

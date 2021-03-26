@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="/styles/customer.css">
 </head>
 <body>
-    <header>
-        <h1>Yash Foods and Beverages</h1>
-    </header>
+    <%- include('./partials/header.ejs') %>
     <main>
         <div class="cart-wrapper">
             <h2>Current order</h2>
@@ -52,9 +50,7 @@
             <% } %>   
         </div>
     </main>
-    <footer>
-
-    </footer>
+    <%- include('./partials/footer.ejs') %>
     <script src="/scripts/customer.js"></script>
 </body>
 </html>

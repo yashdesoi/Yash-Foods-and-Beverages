@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="/styles/orders.css">
 </head>
 <body>
-    <header>
-        <h1>Yash Foods and Beverages</h1>
-    </header>
+    <%- include('./partials/header.ejs') %>
     <main>
         <h2>Pending orders</h2>
         <div class="orders">
@@ -37,26 +35,7 @@
             <% } %>
         </div>
     </main>
-    <footer>
-
-    </footer>
-    <script>
-        const orders = document.querySelector('.orders');
-
-        orders.addEventListener('click', event => {
-            event.stopPropagation();
-
-            if (event.target.classList.contains('complete')) {
-                const orderId = event.target.parentElement.getAttribute('data-id').trim();
-                
-                fetch(`/admin/orders/${orderId}`, {method: 'DELETE'})
-                    .then(res => res.json())
-                    .then(data => {
-                        window.location.href = data.redirect;
-                    })
-                    .catch(err => console.log(err));
-            }
-        });
-    </script>
+    <%- include('./partials/footer.ejs') %>
+    <script src="/scripts/orders.js"></script>
 </body>
 </html>
