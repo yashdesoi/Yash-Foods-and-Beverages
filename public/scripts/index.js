@@ -5,7 +5,7 @@ const cart = document.querySelector('.cart');
 const checkout = document.querySelector('.checkout');
 
 // Inject the data present in local storage
-const data = localStorage.getItem('productList');
+const data = sessionStorage.getItem('productList');
 
 if (data) {
     productList = JSON.parse(data);
@@ -99,7 +99,7 @@ checkout.addEventListener('click', event => {
     if (numberOfItemsInCart > 0) {
         const data = JSON.stringify(productList);
 
-        localStorage.setItem('productList', data);
+        sessionStorage.setItem('productList', data);
         window.location.href = '/customers/13b2v';
         //                                   ^
         //                  dummy route with fake customer id

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const isValidEmail = function(value) {
     const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -39,6 +40,14 @@ const customerSchema = new mongoose.Schema({
         minLength: [4, 'Minimum password length is 4 characters']
     }
 }, {timestamps: true});
+
+// Mongoose middleware
+customerSchema.pre('save', async function(next) {
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(this.password, salt);
+    this.password = hash;
+    next();
+});
 
 const Customer = mongoose.model('Customer', customerSchema);
 

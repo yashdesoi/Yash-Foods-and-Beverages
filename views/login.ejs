@@ -32,41 +32,6 @@
         </form>
     </main>
     <%- include('./partials/footer.ejs') %>
-    <script>
-        // const form = document.forms.signupForm;
-
-        // const emailError = document.querySelector('.email-error');
-        // const passwordError = document.querySelector('.password-error');
-      
-        // form.addEventListener('submit', event => {
-        //     event.preventDefault();
-
-        //     emailError.textContent = '';
-        //     passwordError.textContent = '';
-
-        //     const email = form.email.value;
-        //     const password = form.password.value;
-            
-        //     fetch('/signup', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({email, password})
-        //     })
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             if (data.error) {
-        //                 emailError.textContent = data.email;
-        //                 passwordError.textContent = data.password;
-        //             } else {
-        //                 window.location.href = data.redirect;
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.log(err);
-        //         })
-        // });
-    </script>
+    <script src="/scripts/login.js"></script>
 </body>
 </html>

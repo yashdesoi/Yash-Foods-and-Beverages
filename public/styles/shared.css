@@ -17,3 +17,23 @@ button {
 button {
     cursor: pointer;
 }
+
+/* Header */
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header > h1 {
+    margin: 10px 0;
+}
+
+header > nav {
+    align-self: flex-end;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+}

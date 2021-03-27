@@ -1,6 +1,6 @@
 const cart = document.querySelector('.cart');
 const form = document.querySelector('form');
-const productList = JSON.parse(localStorage.getItem('productList'));
+const productList = JSON.parse(sessionStorage.getItem('productList'));
 let total = 0;
 console.log(productList);
 if (productList) {
@@ -48,7 +48,7 @@ form.addEventListener('submit', event => {
         })
             .then(res => res.json())
             .then(data => {
-                localStorage.removeItem('productList');
+                sessionStorage.removeItem('productList');
                 window.location.href = data.redirect;
             })
             .catch(err => console.log(err));
