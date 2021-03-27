@@ -1,13 +1,19 @@
 const form = document.querySelector('form');
 
-// const emailError = document.querySelector('.email-error');
-// const passwordError = document.querySelector('.password-error');
+const nameError = document.querySelector('.name-error')
+const emailError = document.querySelector('.email-error');
+const mobileNumberError = document.querySelector('.mobile-number-error');
+const addressError = document.querySelector('.address-error');
+const passwordError = document.querySelector('.password-error');
 
 form.addEventListener('submit', event => {
     event.preventDefault();
 
-    // emailError.textContent = '';
-    // passwordError.textContent = '';
+    nameError.textContent = '';
+    emailError.textContent = '';
+    mobileNumberError.textContent = '';
+    addressError.textContent = '';
+    passwordError.textContent = '';
 
     const userDetails = {
         name: form.name.value,
@@ -26,13 +32,15 @@ form.addEventListener('submit', event => {
     })
         .then(res => res.json())
         .then(data => {
-            // if (data.error) {
-            //     emailError.textContent = data.email;
-            //     passwordError.textContent = data.password;
-            // } else {
-            //     window.location.href = data.redirect;
-            // }
-            console.log(data);
+            if (data.error) {
+                nameError.textContent = data.name;
+                emailError.textContent = data.email;
+                mobileNumberError.textContent = data['mobile-number'];
+                addressError.textContent = data.address;
+                passwordError.textContent = data.password;
+            } else {
+                console.log(data);
+            }
         })
         .catch(err => {
             console.log(err);

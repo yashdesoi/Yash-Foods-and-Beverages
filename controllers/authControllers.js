@@ -2,17 +2,30 @@ const bcrypt = require('bcrypt');
 
 const Customer = require('../models/Customer');
 
+// Error handler
 const errorHandler = function(err) {
     const feedback = {
+        error: true,
         name: '',
         email: '',
         'mobile-number': '',
         address: '',
         password: ''
     };
+    // Login
+    if (err.message.includes('Incorrect password')) {
+        feedback.password = err.message;
+        return feedback;
+    } 
+    
+    if (err.message.includes('Incorrect email')) {
+        feedback.email = err.message;
+        return feedback;
+    }
 
+    // Signup
     if (err.code === 11000) {
-        feedback.email = 'That email is already registered'
+        feedback.email = 'This email is already registered'
     }
 
     for (let key in err.errors) {
@@ -21,9 +34,10 @@ const errorHandler = function(err) {
         feedback[path] = message;
     }
 
-    console.log(feedback);
+    return feedback;
 };
 
+// Controllers
 const signup_get = (req, res) => {
     res.render('signup');
 };
@@ -34,8 +48,8 @@ const signup_post = (req, res) => {
             res.status(201).json(doc);
         })
         .catch(err => {
-            errorHandler(err);
-            res.status(400).json({success: false});
+            const feedback = errorHandler(err);
+            res.status(400).json(feedback);
         });
 };
 
@@ -60,7 +74,8 @@ const login_post = async (req, res) => {
             throw Error('Incorrect email');
         }
     } catch (err) {
-        res.status(400).json({success: false});
+        const feedback = errorHandler(err);
+        res.status(400).json(feedback);
     }
 };
 
