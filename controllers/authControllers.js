@@ -1,6 +1,20 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const Customer = require('../models/Customer');
+
+// Token generator
+const privateKey = process.env.PRIVATE_KEY;
+const age = 4 * 24 * 60 * 60;
+
+const generateToken = function(id) {
+    const payload = { id };
+    const token = jwt.sign(payload, privateKey, {
+        expiresIn: age
+    });
+    return token;
+};
 
 // Error handler
 const errorHandler = function(err) {
@@ -12,6 +26,7 @@ const errorHandler = function(err) {
         address: '',
         password: ''
     };
+
     // Login
     if (err.message.includes('Incorrect password')) {
         feedback.password = err.message;
@@ -45,7 +60,17 @@ const signup_get = (req, res) => {
 const signup_post = (req, res) => {
     Customer.create(req.body)
         .then(doc => {
-            res.status(201).json(doc);
+            const { _id } = doc;
+            const token = generateToken(_id);
+            const options = {
+                maxAge: age * 1000,
+                httpOnly: true
+            };
+
+            res
+                .status(201)
+                .cookie('jwt', token, options)
+                .json({redirect: '/'});
         })
         .catch(err => {
             const feedback = errorHandler(err);
@@ -66,7 +91,16 @@ const login_post = async (req, res) => {
         if (doc) {
             const isEqual = await bcrypt.compare(password, doc.password);
             if (isEqual) {
-                res.json(doc);
+                const { _id } = doc;
+                const token = generateToken(_id);
+                const options = {
+                    maxAge: age * 1000,
+                    httpOnly: true
+                };
+
+                res
+                    .cookie('jwt', token, options)
+                    .json({redirect: '/'});
             } else {
                 throw Error('Incorrect password');
             }

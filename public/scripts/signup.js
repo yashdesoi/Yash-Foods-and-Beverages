@@ -39,7 +39,7 @@ form.addEventListener('submit', event => {
                 addressError.textContent = data.address;
                 passwordError.textContent = data.password;
             } else {
-                console.log(data);
+                window.location.href = data.redirect;
             }
         })
         .catch(err => {

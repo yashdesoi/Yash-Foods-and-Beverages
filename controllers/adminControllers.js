@@ -2,7 +2,6 @@ const Product = require('../models/Product');
 const Order = require('../models/Order');
 
 const admin_get = (req, res) => {
-
     Product.find()
         .sort({createdAt: -1})
         .then(docs => {
