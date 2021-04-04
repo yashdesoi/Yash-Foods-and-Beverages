@@ -11,6 +11,10 @@ const admin_get = (req, res) => {
         .catch(err => console.log(err));
 };
 
+const admin_add_get = (req, res) => {
+    res.render('add admin');
+};
+
 const admin_orders_get = (req, res) => {
     Order.find()
         .sort({createdAt: -1})
@@ -41,6 +45,7 @@ const admin_orders_order_delete = (req, res) => {
 
 module.exports = {
     admin_get,
+    admin_add_get,
     admin_orders_get,
     admin_orders_post,
     admin_orders_order_delete

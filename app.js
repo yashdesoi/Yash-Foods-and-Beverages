@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 const adminRouter = require('./routes/adminRoutes');
@@ -40,6 +41,7 @@ app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 
 // Homepage
 app.get('/', (req, res) => {

@@ -67,6 +67,7 @@ const signup_post = (req, res) => {
                 httpOnly: true
             };
 
+            // Setting cookie
             res
                 .status(201)
                 .cookie('jwt', token, options)
@@ -98,6 +99,7 @@ const login_post = async (req, res) => {
                     httpOnly: true
                 };
 
+                // Setting cookie
                 res
                     .cookie('jwt', token, options)
                     .json({redirect: '/'});

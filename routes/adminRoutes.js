@@ -2,9 +2,13 @@ const express = require('express');
 
 const adminController = require('../controllers/adminControllers');
 
+const authMiddleware = require('../middleware/authMiddlewares');
+
 const router = express.Router();
 
-router.get('/', adminController.admin_get);
+router.get('/', authMiddleware.isAuthenticated ,adminController.admin_get);
+
+router.get('/add', adminController.admin_add_get);
 
 router.get('/orders', adminController.admin_orders_get);
 

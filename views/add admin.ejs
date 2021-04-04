@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YFB</title>
+    <link rel="stylesheet" href="/styles/shared.css">
+    <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+    <%- include('./partials/header.ejs') %>
+    <main>
+        <h2>New admin</h2>
+        <form autocomplete="off">
+            <label for="email">
+                Email: <input type="text" name="email" id="email" required>
+            </label>
+            <div class="email-error error">
+
+            </div>
+            <label for="password">
+                Password: <input type="password" name="password" id="password" required>
+            </label>
+            <div class="password-error error">
+                
+            </div>
+            <button>Add</button>
+        </form>
+    </main>
+    <%- include('./partials/footer.ejs') %>
+    <!-- <script src="/scripts/admin.js"></script> -->
+</body>
+</html>
